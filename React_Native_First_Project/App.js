@@ -1,24 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>РЕЄСТРАЦІЯ</Text>
-      <StatusBar style="auto" />
+      <ImageBackground
+        style={styles.backgroundImage}
+        source={require('./Images/Backgrounds/Register_Background.jpg')}
+      >
+        <Text style={styles.header}>РЕЄСТРАЦІЯ</Text>
+        <StatusBar style="auto" />
+      </ImageBackground>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 263,
     flex: 1,
-    alignItems: 'center',
     backgroundColor: '#fff',
   },
-  header: {
+  backgroundImage: {
     flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
+  header: {
     fontSize: 30,
+    color: 'white',
   },
 });
