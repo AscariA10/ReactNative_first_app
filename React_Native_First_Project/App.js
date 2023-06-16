@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet,
@@ -10,14 +10,26 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Platform,
+  Keyboard,
 } from 'react-native';
-import { Keyboard } from 'react-native';
+
+import * as Font from 'expo-font';
+import { useFonts } from 'expo-font';
 
 export default function App() {
+  const initialState = {
+    login: '',
+    email: '',
+    password: '',
+  };
+
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [login, setLogin] = useState(false);
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
+  const [state, setState] = useState(initialState);
+
+  console.log(state);
 
   function hideKeyboard() {
     setIsShowKeyboard(false);
@@ -70,6 +82,10 @@ export default function App() {
               <Text style={styles.header}>Реєстрація</Text>
               <TextInput
                 placeholder={'Логін'}
+                value={state.login}
+                onChangeText={value => {
+                  setState(prevState => ({ ...prevState, login: value }));
+                }}
                 onFocus={handleLoginInputFocus}
                 onBlur={handleLoginInputBlur}
                 style={{
@@ -79,6 +95,10 @@ export default function App() {
               />
               <TextInput
                 placeholder={'Адреса електронної пошти'}
+                value={state.email}
+                onChangeText={value => {
+                  setState(prevState => ({ ...prevState, email: value }));
+                }}
                 onFocus={handleEmailInputFocus}
                 onBlur={handleEmailInputBlur}
                 style={{
@@ -88,7 +108,11 @@ export default function App() {
               />
               <TextInput
                 placeholder={'Пароль'}
-                secureTextEntry={'true'}
+                value={state.password}
+                onChangeText={value => {
+                  setState(prevState => ({ ...prevState, password: value }));
+                }}
+                secureTextEntry={true}
                 onFocus={handlePasswordInputFocus}
                 onBlur={handlePasswordInputBlur}
                 style={{ ...styles.input, borderColor: password ? '#FF6C00' : '#E8E8E8' }}
@@ -128,6 +152,7 @@ const styles = StyleSheet.create({
     marginTop: -60,
     width: 120,
     height: 120,
+    borderRadius: 16,
     backgroundColor: '#F6F6F6',
   },
   header: {
