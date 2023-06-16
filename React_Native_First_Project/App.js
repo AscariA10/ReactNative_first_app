@@ -1,26 +1,106 @@
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ImageBackground, TextInput, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
+import { Keyboard } from 'react-native';
 
 export default function App() {
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [login, setLogin] = useState(false);
+  const [email, setEmail] = useState(false);
+  const [password, setPassword] = useState(false);
+
+  function hideKeyboard() {
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+  }
+
+  function handleLoginInputFocus() {
+    setIsShowKeyboard(true);
+    setLogin(true);
+  }
+
+  function handleLoginInputBlur() {
+    setLogin(false);
+    hideKeyboard();
+  }
+
+  function handleEmailInputFocus() {
+    setIsShowKeyboard(true);
+    setEmail(true);
+  }
+
+  function handleEmailInputBlur() {
+    setEmail(false);
+    hideKeyboard();
+  }
+
+  function handlePasswordInputFocus() {
+    setIsShowKeyboard(true);
+    setPassword(true);
+  }
+
+  function handlePasswordInputBlur() {
+    setPassword(false);
+    hideKeyboard();
+  }
+
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        style={styles.backgroundImage}
-        source={require('./Images/Backgrounds/Register_Background.jpg')}
-      >
-        <View style={styles.form}>
-          <View style={styles.userProfilePhoto}></View>
-          <Text style={styles.header}>Реєстрація</Text>
-          <TextInput placeholder={'Логін'} style={styles.input} />
-          <TextInput placeholder={'Адреса електронної пошти'} style={styles.input} />
-          <TextInput placeholder={'Пароль'} style={styles.input} />
-          <TouchableOpacity activeOpacity={0.9} style={styles.button}>
-            <Text style={styles.buttonTitle}>Зареєструватися</Text>
-          </TouchableOpacity>
-          <StatusBar style="auto" />
-        </View>
-      </ImageBackground>
-    </View>
+    <TouchableWithoutFeedback onPress={hideKeyboard}>
+      <View style={styles.container}>
+        <ImageBackground
+          style={styles.backgroundImage}
+          source={require('./Images/Backgrounds/Register_Background.jpg')}
+        >
+          <KeyboardAvoidingView
+            behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+            style={{ ...styles.innerContainer, marginTop: isShowKeyboard ? 147 : 263 }}
+          >
+            <View style={{ ...styles.form }}>
+              <View style={styles.userProfilePhoto}></View>
+              <Text style={styles.header}>Реєстрація</Text>
+              <TextInput
+                placeholder={'Логін'}
+                onFocus={handleLoginInputFocus}
+                onBlur={handleLoginInputBlur}
+                style={{
+                  ...styles.input,
+                  borderColor: login ? '#FF6C00' : '#E8E8E8',
+                }}
+              />
+              <TextInput
+                placeholder={'Адреса електронної пошти'}
+                onFocus={handleEmailInputFocus}
+                onBlur={handleEmailInputBlur}
+                style={{
+                  ...styles.input,
+                  borderColor: email ? '#FF6C00' : '#E8E8E8',
+                }}
+              />
+              <TextInput
+                placeholder={'Пароль'}
+                secureTextEntry={'true'}
+                onFocus={handlePasswordInputFocus}
+                onBlur={handlePasswordInputBlur}
+                style={{ ...styles.input, borderColor: password ? '#FF6C00' : '#E8E8E8' }}
+              />
+              <TouchableOpacity activeOpacity={0.9} onPress={hideKeyboard} style={styles.button}>
+                <Text style={styles.buttonTitle}>Зареєструватися</Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -32,11 +112,11 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
+  innerContainer: { flex: 1 },
   form: {
     flex: 1,
-    marginTop: 263,
     borderColor: 'red',
     borderWidth: 1,
     backgroundColor: '#FFFFFF',
