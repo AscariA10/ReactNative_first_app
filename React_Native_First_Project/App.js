@@ -13,23 +13,37 @@ import {
   Keyboard,
 } from 'react-native';
 
-import * as Font from 'expo-font';
 import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
+
+const initialState = {
+  login: '',
+  email: '',
+  password: '',
+};
 
 export default function App() {
-  const initialState = {
-    login: '',
-    email: '',
-    password: '',
-  };
-
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [login, setLogin] = useState(false);
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
   const [state, setState] = useState(initialState);
 
-  console.log(state);
+  const [fontsLoaded] = useFonts({
+    'Roboto-Medium': require('./assets/Fonts/Roboto/Roboto-Medium.ttf'),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   function hideKeyboard() {
     setIsShowKeyboard(false);
@@ -68,7 +82,7 @@ export default function App() {
 
   return (
     <TouchableWithoutFeedback onPress={hideKeyboard}>
-      <View style={styles.container}>
+      <View style={styles.container} onLayout={onLayoutRootView}>
         <ImageBackground
           style={styles.backgroundImage}
           source={require('./Images/Backgrounds/Register_Background.jpg')}
@@ -161,6 +175,7 @@ const styles = StyleSheet.create({
     marginBottom: 33,
     textAlign: 'center',
     fontSize: 30,
+    fontFamily: 'Roboto-Medium',
     color: '#212121',
   },
   input: {
@@ -172,6 +187,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F6F6',
     borderWidth: 1,
     borderColor: '#E8E8E8',
+    fontFamily: 'Roboto-Medium',
   },
   button: {
     backgroundColor: '#FF6C00',
@@ -184,6 +200,7 @@ const styles = StyleSheet.create({
   },
   buttonTitle: {
     color: '#FFFFFF',
+    fontFamily: 'Roboto-Medium',
     fontSize: 16,
     lineHeight: 18.75,
   },
