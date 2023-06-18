@@ -22,7 +22,7 @@ const initialState = {
   password: '',
 };
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [login, setLogin] = useState(false);
   const [email, setEmail] = useState(false);
@@ -114,6 +114,17 @@ export default function LoginScreen() {
               <TouchableOpacity activeOpacity={0.9} onPress={onSubmit} style={styles.button}>
                 <Text style={styles.buttonTitle}>Увійти</Text>
               </TouchableOpacity>
+              <View style={styles.navigationBlock}>
+                <Text style={styles.navigationString}>
+                  Немає акаунту?{' '}
+                  <Text
+                    onPress={() => navigation.navigate('RegisterScreen')}
+                    style={styles.navigationLink}
+                  >
+                    Зареєструватися
+                  </Text>
+                </Text>
+              </View>
             </View>
           </KeyboardAvoidingView>
         </ImageBackground>
@@ -135,8 +146,6 @@ const styles = StyleSheet.create({
   innerContainer: { flex: 1 },
   form: {
     flex: 1,
-    borderColor: 'red',
-    borderWidth: 1,
     backgroundColor: '#FFFFFF',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
@@ -183,5 +192,15 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Medium',
     fontSize: 16,
     lineHeight: 18.75,
+  },
+  navigationBlock: {
+    alignItems: 'center',
+    marginTop: 16,
+  },
+  navigationString: {
+    color: '#1B4371',
+  },
+  navigationLink: {
+    color: '#1B4371',
   },
 });
