@@ -31,19 +31,19 @@ export default function RegisterScreen({ navigation }) {
   const [password, setPassword] = useState(false);
   const [state, setState] = useState(initialState);
 
-  const [fontsLoaded] = useFonts({
-    'Roboto-Medium': require('../assets/Fonts/Roboto/Roboto-Medium.ttf'),
-  });
+  // const [fontsLoaded] = useFonts({
+  //   'Roboto-Medium': require('../assets/Fonts/Roboto/Roboto-Medium.ttf'),
+  // });
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
+  // const onLayoutRootView = useCallback(async () => {
+  //   if (fontsLoaded) {
+  //     await SplashScreen.hideAsync();
+  //   }
+  // }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
-    return null;
-  }
+  // if (!fontsLoaded) {
+  //   return null;
+  // }
 
   function hideKeyboard() {
     setIsShowKeyboard(false);
@@ -81,14 +81,13 @@ export default function RegisterScreen({ navigation }) {
   }
 
   function onSubmit() {
-    console.log(state);
     setState(initialState);
     hideKeyboard();
   }
 
   return (
-    <TouchableWithoutFeedback onPress={hideKeyboard}>
-      <View style={styles.container} onLayout={onLayoutRootView}>
+    <TouchableWithoutFeedback onPress={hideKeyboard} onLayout={onLayoutRootView}>
+      <View style={styles.container}>
         <ImageBackground
           style={styles.backgroundImage}
           source={require('../Images/Backgrounds/Register_Background.jpg')}

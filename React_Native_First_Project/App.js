@@ -29,7 +29,7 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer onLayout={onLayoutRootView} >
       <AuthStack.Navigator>
         <AuthStack.Screen
           options={{
