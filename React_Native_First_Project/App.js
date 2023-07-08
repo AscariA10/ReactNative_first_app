@@ -1,35 +1,41 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+
+import { Text } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import * as Font from "expo-font"
+
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
 
 import RegisterScreen from './Screens/RegisterScreen';
 import LoginScreen from './Screens/LoginScreen';
 
-SplashScreen.preventAutoHideAsync();
-
 const AuthStack = createStackNavigator();
 
 export default function App() {
+
   const [fontsLoaded] = useFonts({
     'Roboto-Medium': require('./assets/Fonts/Roboto/Roboto-Medium.ttf'),
   });
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
+  useEffect(()=>{
+   async function prepare(){
+    await SplashScreen.preventAutoHideAsync()
+   }
+   prepare()
+  },[])
 
   if (!fontsLoaded) {
     return null;
+  } else{
+    SplashScreen.hideAsync()
   }
 
   return (
-    <NavigationContainer onLayout={onLayoutRootView} >
+    <NavigationContainer>
       <AuthStack.Navigator>
         <AuthStack.Screen
           options={{
@@ -49,3 +55,21 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+// -------ADDING FONTS WITOUT SPLASH SCREEN ---------
+// const [fontLoaded, setFontLoaded] = useState(false);
+
+  // useEffect(() => {
+  //   async function loadFont() {
+  //     await Font.loadAsync({
+  //       "Roboto-Medium": (require('./assets/Fonts/Roboto/Roboto-Medium.ttf')),
+  //     });
+
+  //     setFontLoaded(true);
+  //   }
+  //   loadFont();
+  // }, []);
+
+  // if (!fontLoaded) {
+  //   return <Text>Loading...</Text>;
+  // }

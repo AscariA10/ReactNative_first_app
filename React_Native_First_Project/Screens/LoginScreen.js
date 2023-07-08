@@ -12,15 +12,13 @@ import {
   Keyboard,
 } from 'react-native';
 
-import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-
-SplashScreen.preventAutoHideAsync();
 
 const initialState = {
   email: '',
   password: '',
 };
+
 
 export default function LoginScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -73,7 +71,7 @@ export default function LoginScreen({ navigation }) {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={hideKeyboard} onLayout={onLayoutRootView}>
+    <TouchableWithoutFeedback onPress={hideKeyboard}>
       <View style={styles.container}>
         <ImageBackground
           style={styles.backgroundImage}

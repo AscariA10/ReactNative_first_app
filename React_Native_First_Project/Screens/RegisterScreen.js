@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { StatusBar } from 'expo-status-bar';
+
 import {
   StyleSheet,
   Text,
@@ -13,16 +13,14 @@ import {
   Keyboard,
 } from 'react-native';
 
-import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-
-SplashScreen.preventAutoHideAsync();
 
 const initialState = {
   login: '',
   email: '',
   password: '',
 };
+
 
 export default function RegisterScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -86,7 +84,7 @@ export default function RegisterScreen({ navigation }) {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={hideKeyboard} onLayout={onLayoutRootView}>
+    <TouchableWithoutFeedback onPress={hideKeyboard}>
       <View style={styles.container}>
         <ImageBackground
           style={styles.backgroundImage}
