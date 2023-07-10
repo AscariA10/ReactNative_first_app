@@ -79,7 +79,7 @@ export default function LoginScreen({ navigation }) {
                         onFocus={handleEmailInputFocus}
                         onBlur={handleEmailInputBlur}
                         style={{
-                           ...styles.input,
+                           ...CommonStyles.input,
                            borderColor: email ? "#FF6C00" : "#E8E8E8",
                         }}
                      />
@@ -92,17 +92,24 @@ export default function LoginScreen({ navigation }) {
                         secureTextEntry={true}
                         onFocus={handlePasswordInputFocus}
                         onBlur={handlePasswordInputBlur}
-                        style={{ ...styles.input, borderColor: password ? "#FF6C00" : "#E8E8E8" }}
+                        style={{
+                           ...CommonStyles.input,
+                           borderColor: password ? "#FF6C00" : "#E8E8E8",
+                        }}
                      />
-                     <TouchableOpacity activeOpacity={0.9} onPress={onSubmit} style={styles.button}>
-                        <Text style={styles.buttonTitle}>Увійти</Text>
+                     <TouchableOpacity
+                        activeOpacity={0.9}
+                        onPress={onSubmit}
+                        style={CommonStyles.button}
+                     >
+                        <Text style={CommonStyles.buttonTitle}>Увійти</Text>
                      </TouchableOpacity>
-                     <View style={styles.navigationBlock}>
-                        <Text style={styles.navigationString}>
+                     <View style={CommonStyles.navigationBlock}>
+                        <Text style={CommonStyles.navigationString}>
                            Немає акаунту?{" "}
                            <Text
                               onPress={() => navigation.navigate("RegisterScreen")}
-                              style={styles.navigationLink}
+                              style={CommonStyles.navigationLink}
                            >
                               Зареєструватися
                            </Text>
@@ -116,41 +123,4 @@ export default function LoginScreen({ navigation }) {
    );
 }
 
-const styles = StyleSheet.create({
-   input: {
-      marginHorizontal: 16,
-      marginBottom: 16,
-      height: 50,
-      padding: 15,
-      borderRadius: 8,
-      backgroundColor: "#F6F6F6",
-      borderWidth: 1,
-      borderColor: "#E8E8E8",
-      fontFamily: "Roboto-Medium",
-   },
-   button: {
-      backgroundColor: "#FF6C00",
-      marginHorizontal: 16,
-      marginTop: 43,
-      borderRadius: 100,
-      padding: 16,
-      alignItems: "center",
-      justifyContent: "center",
-   },
-   buttonTitle: {
-      color: "#FFFFFF",
-      fontFamily: "Roboto-Medium",
-      fontSize: 16,
-      lineHeight: 18.75,
-   },
-   navigationBlock: {
-      alignItems: "center",
-      marginTop: 16,
-   },
-   navigationString: {
-      color: "#1B4371",
-   },
-   navigationLink: {
-      color: "#1B4371",
-   },
-});
+const styles = StyleSheet.create({});

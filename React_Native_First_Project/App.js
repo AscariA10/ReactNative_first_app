@@ -56,7 +56,7 @@ export default function App() {
 }
 
 // -------ADDING FONTS WITOUT SPLASH SCREEN ---------
-// const [fontLoaded, setFontLoaded] = useState(false);
+// ?const [fontLoaded, setFontLoaded] = useState(false);
 
 // useEffect(() => {
 //   async function loadFont() {
