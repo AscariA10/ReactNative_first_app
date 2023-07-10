@@ -28,20 +28,6 @@ export default function RegisterScreen({ navigation }) {
    const [password, setPassword] = useState(false);
    const [state, setState] = useState(initialState);
 
-   // const [fontsLoaded] = useFonts({
-   //   'Roboto-Medium': require('../assets/Fonts/Roboto/Roboto-Medium.ttf'),
-   // });
-
-   // const onLayoutRootView = useCallback(async () => {
-   //   if (fontsLoaded) {
-   //     await SplashScreen.hideAsync();
-   //   }
-   // }, [fontsLoaded]);
-
-   // if (!fontsLoaded) {
-   //   return null;
-   // }
-
    function hideKeyboard() {
       setIsShowKeyboard(false);
       Keyboard.dismiss();
