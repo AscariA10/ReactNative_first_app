@@ -6,6 +6,7 @@ import React, { useState, useCallback, useEffect } from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -14,6 +15,7 @@ import RegisterScreen from "./Screens/RegisterScreen";
 import LoginScreen from "./Screens/LoginScreen";
 
 const AuthStack = createStackNavigator();
+const userTabs = createBottomTabNavigator();
 
 export default function App() {
    const [fontsLoaded] = useFonts({

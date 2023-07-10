@@ -30,7 +30,6 @@ export default function RegisterScreen({ navigation }) {
 
    function hideKeyboard() {
       setIsShowKeyboard(false);
-      Keyboard.dismiss();
    }
 
    function handleLoginInputFocus() {

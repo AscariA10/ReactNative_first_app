@@ -28,7 +28,6 @@ export default function LoginScreen({ navigation }) {
 
    function hideKeyboard() {
       setIsShowKeyboard(false);
-      Keyboard.dismiss();
    }
 
    function handleEmailInputFocus() {
