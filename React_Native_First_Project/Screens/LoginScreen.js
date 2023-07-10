@@ -1,4 +1,7 @@
 import React, { useState, useCallback } from "react";
+
+import CommonStyles from "../styles/auth-common-styles";
+
 import {
    StyleSheet,
    Text,
@@ -56,17 +59,17 @@ export default function LoginScreen({ navigation }) {
 
    return (
       <TouchableWithoutFeedback onPress={hideKeyboard}>
-         <View style={styles.container}>
+         <View style={CommonStyles.container}>
             <ImageBackground
-               style={styles.backgroundImage}
+               style={CommonStyles.backgroundImage}
                source={require("../Images/Backgrounds/Register_Background.jpg")}
             >
                <KeyboardAvoidingView
                   behavior={Platform.OS == "ios" ? "padding" : "height"}
-                  style={{ ...styles.innerContainer, marginTop: isShowKeyboard ? 250 : 323 }}
+                  style={{ ...CommonStyles.innerContainer, marginTop: isShowKeyboard ? 250 : 323 }}
                >
-                  <View style={{ ...styles.form }}>
-                     <Text style={styles.header}>Увійти</Text>
+                  <View style={{ ...CommonStyles.form }}>
+                     <Text style={CommonStyles.header}>Увійти</Text>
                      <TextInput
                         placeholder={"Адреса електронної пошти"}
                         value={state.email}
@@ -114,39 +117,6 @@ export default function LoginScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-   container: {
-      flex: 1,
-      backgroundColor: "#fff",
-   },
-   backgroundImage: {
-      flex: 1,
-      resizeMode: "cover",
-      // justifyContent: 'center',
-   },
-   innerContainer: { flex: 1 },
-   form: {
-      flex: 1,
-      backgroundColor: "#FFFFFF",
-      borderTopLeftRadius: 25,
-      borderTopRightRadius: 25,
-   },
-   userProfilePhoto: {
-      marginHorizontal: 127,
-      marginTop: -60,
-      width: 120,
-      height: 120,
-      borderRadius: 16,
-      backgroundColor: "#F6F6F6",
-   },
-   header: {
-      marginTop: 32,
-      marginHorizontal: 16,
-      marginBottom: 32,
-      textAlign: "center",
-      fontSize: 30,
-      fontFamily: "Roboto-Medium",
-      color: "#212121",
-   },
    input: {
       marginHorizontal: 16,
       marginBottom: 16,
