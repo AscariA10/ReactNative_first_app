@@ -13,8 +13,6 @@ import {
    Keyboard,
 } from "react-native";
 
-import * as SplashScreen from "expo-splash-screen";
-
 const initialState = {
    login: "",
    email: "",
@@ -64,6 +62,7 @@ export default function RegisterScreen({ navigation }) {
    }
 
    function onSubmit() {
+      console.log(state);
       setState(initialState);
       hideKeyboard();
    }
@@ -77,7 +76,7 @@ export default function RegisterScreen({ navigation }) {
             >
                <KeyboardAvoidingView
                   behavior={Platform.OS == "ios" ? "padding" : "height"}
-                  style={{ ...styles.innerContainer, marginTop: isShowKeyboard ? 147 : 263 }}
+                  style={{ ...styles.innerContainer, marginTop: isShowKeyboard ? 125 : 263 }}
                >
                   <View style={{ ...styles.form }}>
                      <View style={styles.userProfilePhoto}></View>

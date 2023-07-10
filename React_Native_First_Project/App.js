@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from "react";
 
-import { Text } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import * as Font from "expo-font";
+// import { Text } from "react-native";
+// import { StatusBar } from "expo-status-bar";
+// import * as Font from "expo-font";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
