@@ -70,7 +70,7 @@ export default function RegisterScreen({ navigation }) {
    }
 
    return (
-      <TouchableWithoutFeedback onPress={hideKeyboard}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
          <View style={CommonStyles.container}>
             <ImageBackground
                style={CommonStyles.backgroundImage}

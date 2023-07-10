@@ -58,7 +58,7 @@ export default function LoginScreen({ navigation }) {
    }
 
    return (
-      <TouchableWithoutFeedback onPress={hideKeyboard}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
          <View style={CommonStyles.container}>
             <ImageBackground
                style={CommonStyles.backgroundImage}
