@@ -11,32 +11,19 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-import RegisterScreen from "./Screens/RegisterScreen";
-import LoginScreen from "./Screens/LoginScreen";
+import RegisterScreen from "./screens/auth/RegisterScreen";
+import LoginScreen from "./screens/auth/LoginScreen";
+
+import PostsScreen from "./screens/main/PostsScreen";
+import CommentsScreen from "./screens/main/CommentsScreen";
+import CreateScreen from "./screens/main/CreateScreen";
 
 const AuthStack = createStackNavigator();
-const userTabs = createBottomTabNavigator();
+const MainTab = createBottomTabNavigator();
 
-export default function App() {
-   const [fontsLoaded] = useFonts({
-      "Roboto-Medium": require("./assets/Fonts/Roboto/Roboto-Medium.ttf"),
-   });
-
-   useEffect(() => {
-      async function prepare() {
-         await SplashScreen.preventAutoHideAsync();
-      }
-      prepare();
-   }, []);
-
-   if (!fontsLoaded) {
-      return null;
-   } else {
-      SplashScreen.hideAsync();
-   }
-
-   return (
-      <NavigationContainer>
+const useRoute = isAuth => {
+   if (!isAuth) {
+      return (
          <AuthStack.Navigator>
             <AuthStack.Screen
                options={{
@@ -53,24 +40,36 @@ export default function App() {
                component={LoginScreen}
             />
          </AuthStack.Navigator>
-      </NavigationContainer>
+      );
+   }
+   return (
+      <MainTab.Navigator>
+         <MainTab.Screen name="Posts" component={PostsScreen} />
+         <MainTab.Screen name="Comments" component={CommentsScreen} />
+         <MainTab.Screen name="Create" component={CreateScreen} />
+      </MainTab.Navigator>
    );
+};
+
+export default function App() {
+   const [fontsLoaded] = useFonts({
+      "Roboto-Medium": require("./assets/Fonts/Roboto/Roboto-Medium.ttf"),
+   });
+
+   const routing = useRoute(1);
+
+   useEffect(() => {
+      async function prepare() {
+         await SplashScreen.preventAutoHideAsync();
+      }
+      prepare();
+   }, []);
+
+   if (!fontsLoaded) {
+      return null;
+   } else {
+      SplashScreen.hideAsync();
+   }
+
+   return <NavigationContainer>{routing}</NavigationContainer>;
 }
-
-// -------ADDING FONTS WITOUT SPLASH SCREEN ---------
-// ?const [fontLoaded, setFontLoaded] = useState(false);
-
-// useEffect(() => {
-//   async function loadFont() {
-//     await Font.loadAsync({
-//       "Roboto-Medium": (require('./assets/Fonts/Roboto/Roboto-Medium.ttf')),
-//     });
-
-//     setFontLoaded(true);
-//   }
-//   loadFont();
-// }, []);
-
-// if (!fontLoaded) {
-//   return <Text>Loading...</Text>;
-// }

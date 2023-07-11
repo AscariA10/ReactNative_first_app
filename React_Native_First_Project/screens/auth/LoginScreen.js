@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 
-import CommonStyles from "../styles/auth-common-styles";
+import CommonStyles from "../../styles/auth-common-styles.js";
 
 import {
    StyleSheet,
@@ -61,7 +61,7 @@ export default function LoginScreen({ navigation }) {
          <View style={CommonStyles.container}>
             <ImageBackground
                style={CommonStyles.backgroundImage}
-               source={require("../Images/Backgrounds/Register_Background.jpg")}
+               source={require("../../Images/Backgrounds/Register_Background.jpg")}
             >
                <KeyboardAvoidingView
                   behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -121,5 +121,3 @@ export default function LoginScreen({ navigation }) {
       </TouchableWithoutFeedback>
    );
 }
-
-const styles = StyleSheet.create({});
