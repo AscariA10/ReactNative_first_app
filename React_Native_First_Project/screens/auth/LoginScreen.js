@@ -54,6 +54,7 @@ export default function LoginScreen({ navigation }) {
       console.log(state);
       setState(initialState);
       hideKeyboard();
+      navigation.navigate("Posts");
    }
 
    return (
