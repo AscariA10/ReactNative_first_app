@@ -66,6 +66,7 @@ export default function RegisterScreen({ navigation }) {
       console.log(state);
       setState(initialState);
       hideKeyboard();
+      navigation.navigate("Home");
    }
 
    return (
@@ -84,6 +85,7 @@ export default function RegisterScreen({ navigation }) {
                      <Text style={CommonStyles.header}>Реєстрація</Text>
                      <TextInput
                         placeholder={"Логін"}
+                        inputMode="text"
                         value={state.login}
                         onChangeText={value => {
                            setState(prevState => ({ ...prevState, login: value }));
@@ -97,6 +99,7 @@ export default function RegisterScreen({ navigation }) {
                      />
                      <TextInput
                         placeholder={"Адреса електронної пошти"}
+                        inputMode="email"
                         value={state.email}
                         onChangeText={value => {
                            setState(prevState => ({ ...prevState, email: value }));
