@@ -1,4 +1,4 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator, HeaderBackButton } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 
 import React from "react";
@@ -6,7 +6,7 @@ import { StyleSheet } from "react-native";
 
 import PostsScreen from "./PostsScreen";
 import CommentsScreen from "./CommentsScreen";
-import CreateScreen from "./CreateScreen";
+import CreatePostsScreen from "./CreatePostsScreen";
 
 const MainTab = createBottomTabNavigator();
 
@@ -17,6 +17,15 @@ export default function Home({ navigation }) {
             options={{
                tabBarIcon: ({ focused, size, color }) => (
                   <Feather name="grid" size={size} color={color} />
+               ),
+               headerRight: ({ focused, size, color }) => (
+                  <Feather
+                     onPress={() => navigation.navigate("LoginScreen")}
+                     style={styles.logOut}
+                     name="log-out"
+                     size={24}
+                     color="black"
+                  />
                ),
             }}
             name="Posts"
@@ -30,8 +39,8 @@ export default function Home({ navigation }) {
                   <Feather name="plus" size={size} color={"#fff"} />
                ),
             }}
-            name="Comments"
-            component={CommentsScreen}
+            name="Create"
+            component={CreatePostsScreen}
          />
          <MainTab.Screen
             options={{
@@ -39,8 +48,8 @@ export default function Home({ navigation }) {
                   <Feather name="user" size={size} color={color} />
                ),
             }}
-            name="Create"
-            component={CreateScreen}
+            name="Comments"
+            component={CommentsScreen}
          />
       </MainTab.Navigator>
    );
@@ -62,5 +71,12 @@ const styles = StyleSheet.create({
       padding: 6,
       borderRadius: 20,
       backgroundColor: "#ff6c00",
+   },
+   logOut: {
+      width: 24,
+      height: 24,
+      marginRight: 10,
+      marginBottom: 10,
+      color: "#BDBDBD",
    },
 });

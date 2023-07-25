@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 
-export default function CreateScreen() {
+export default function CreatePostsScreen() {
    return (
       <View style={styles.container}>
          <Text>CreateScreen</Text>
