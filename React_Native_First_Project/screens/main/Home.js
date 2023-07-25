@@ -38,14 +38,32 @@ export default function Home({ navigation }) {
                tabBarIcon: ({ focused, size, color }) => (
                   <Feather name="plus" size={size} color={"#fff"} />
                ),
+               headerLeft: props => (
+                  <Feather
+                     onPress={() => navigation.navigate("Posts")}
+                     style={styles.stepBack}
+                     name="arrow-left"
+                     size={24}
+                     color="black"
+                  />
+               ),
             }}
-            name="Create"
+            name="Create Post"
             component={CreatePostsScreen}
          />
          <MainTab.Screen
             options={{
                tabBarIcon: ({ focused, size, color }) => (
                   <Feather name="user" size={size} color={color} />
+               ),
+               headerLeft: props => (
+                  <Feather
+                     onPress={() => navigation.navigate("Posts")}
+                     style={styles.stepBack}
+                     name="arrow-left"
+                     size={24}
+                     color="black"
+                  />
                ),
             }}
             name="Comments"
@@ -78,5 +96,11 @@ const styles = StyleSheet.create({
       marginRight: 10,
       marginBottom: 10,
       color: "#BDBDBD",
+   },
+   stepBack: {
+      width: 24,
+      height: 24,
+      marginBottom: 10,
+      marginLeft: 16,
    },
 });
