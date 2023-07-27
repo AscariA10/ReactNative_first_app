@@ -1,4 +1,4 @@
-import { createBottomTabNavigator, HeaderBackButton } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 
 import React from "react";

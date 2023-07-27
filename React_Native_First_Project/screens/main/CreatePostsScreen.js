@@ -57,7 +57,7 @@ export default function CreatePostsScreen({ navigation }) {
    async function sendPhoto() {
       const location = await Location.getCurrentPositionAsync();
       console.log(location);
-      navigation.navigate("Posts", { ...state, photo });
+      navigation.navigate("PostsDefault", { ...state, photo, location });
       setState(initialState);
       hideKeyboard();
    }
