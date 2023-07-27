@@ -8,7 +8,6 @@ export default StyleSheet.create({
    backgroundImage: {
       flex: 1,
       resizeMode: "cover",
-      // justifyContent: 'center',
    },
    innerContainer: { flex: 1 },
    form: {

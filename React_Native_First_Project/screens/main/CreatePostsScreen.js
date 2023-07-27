@@ -6,6 +6,8 @@ import {
    Text,
    TextInput,
    TouchableOpacity,
+   TouchableWithoutFeedback,
+   Keyboard,
    KeyboardAvoidingView,
 } from "react-native";
 import { Camera } from "expo-camera";
@@ -49,13 +51,15 @@ export default function CreatePostsScreen({ navigation }) {
 
    async function takePhoto() {
       const photo = await camera.takePictureAsync();
-      const location = await Location.getCurrentPositionAsync();
       setPhoto(photo.uri);
-      console.log(location);
    }
 
-   function sendPhoto() {
+   async function sendPhoto() {
+      const location = await Location.getCurrentPositionAsync();
+      console.log(location);
       navigation.navigate("Posts", { ...state, photo });
+      setState(initialState);
+      hideKeyboard();
    }
 
    function hideKeyboard() {
@@ -83,46 +87,51 @@ export default function CreatePostsScreen({ navigation }) {
    }
 
    return (
-      <View style={styles.container}>
-         <View style={styles.cameraContainer}>
-            <Camera style={styles.camera} ref={setCamera}>
-               <TouchableOpacity onPress={takePhoto} style={styles.cameraButton}>
-                  <FontAwesome5 name="camera" size={24} color="#BDBDBD" />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+         <View style={styles.container}>
+            <View style={styles.cameraContainer}>
+               <Camera style={styles.camera} ref={setCamera}>
+                  <TouchableOpacity onPress={takePhoto} style={styles.cameraButton}>
+                     <FontAwesome5 name="camera" size={24} color="#BDBDBD" />
+                  </TouchableOpacity>
+               </Camera>
+               <Text style={styles.cameraTitle}>Upload Photo</Text>
+            </View>
+            <KeyboardAvoidingView
+               behavior={Platform.OS == "ios" ? "padding" : "height"}
+               style={{ ...styles.innerContainer, marginTop: isShowKeyboard ? -70 : 0 }}
+            >
+               <TextInput
+                  placeholder={"Назва..."}
+                  inputMode="text"
+                  onChangeText={value => {
+                     setState(prevState => ({ ...prevState, name: value }));
+                  }}
+                  onFocus={handleNameInputFocus}
+                  onBlur={handleNameInputBlur}
+                  value={state.name}
+                  style={styles.nameInput}
+               />
+               <View style={styles.placeWrapper}>
+                  <TextInput
+                     placeholder={"   Місцевість..."}
+                     inputMode="text"
+                     onChangeText={value => {
+                        setState(prevState => ({ ...prevState, place: value }));
+                     }}
+                     onFocus={handlePlaceInputFocus}
+                     onBlur={handlePlaceInputBlur}
+                     value={state.place}
+                     style={styles.placeInput}
+                  />
+                  <Feather style={styles.placeIcon} name="map-pin" size={24} color="#BDBDBD" />
+               </View>
+               <TouchableOpacity activeOpacity={0.9} onPress={sendPhoto} style={styles.sendButton}>
+                  <Text style={""}>Опублікувати</Text>
                </TouchableOpacity>
-            </Camera>
-            <Text style={styles.cameraTitle}>Upload Photo</Text>
+            </KeyboardAvoidingView>
          </View>
-         <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
-            style={{ ...styles.innerContainer, marginTop: isShowKeyboard ? -10 : 0 }}
-         >
-            <TextInput
-               placeholder={"Назва..."}
-               inputMode="text"
-               onChangeText={value => {
-                  setState(prevState => ({ ...prevState, name: value }));
-               }}
-               onFocus={handleNameInputFocus}
-               onBlur={handleNameInputBlur}
-               value={state.name}
-               style={styles.nameInput}
-            />
-            <TextInput
-               placeholder={"Місцевість..."}
-               inputMode="text"
-               onChangeText={value => {
-                  setState(prevState => ({ ...prevState, place: value }));
-               }}
-               onFocus={handleNameInputFocus}
-               onBlur={handleNameInputBlur}
-               value={state.name}
-               style={styles.placeInput}
-            />
-            <TouchableOpacity activeOpacity={0.9} onPress={sendPhoto} style={styles.sendButton}>
-               <Text style={""}>Опублікувати</Text>
-            </TouchableOpacity>
-         </KeyboardAvoidingView>
-      </View>
+      </TouchableWithoutFeedback>
    );
 }
 
@@ -172,6 +181,10 @@ const styles = StyleSheet.create({
       borderColor: "#E8E8E8",
       fontFamily: "Roboto-Medium",
    },
+   placeWrapper: {
+      position: "relative",
+   },
+
    placeInput: {
       marginHorizontal: 16,
       marginTop: 16,
@@ -182,6 +195,11 @@ const styles = StyleSheet.create({
       borderBottomWidth: 1,
       borderColor: "#E8E8E8",
       fontFamily: "Roboto-Medium",
+   },
+   placeIcon: {
+      position: "absolute",
+      top: 29,
+      left: 16,
    },
    sendButton: {
       marginTop: 32,

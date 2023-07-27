@@ -63,7 +63,6 @@ export default function RegisterScreen({ navigation }) {
    }
 
    function onSubmit() {
-      console.log(state);
       setState(initialState);
       hideKeyboard();
       navigation.navigate("Home");
