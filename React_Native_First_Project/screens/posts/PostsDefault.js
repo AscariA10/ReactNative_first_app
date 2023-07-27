@@ -1,11 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { StyleSheet, View, Text, Button } from "react-native";
+import * as Location from "expo-location";
 
-const PostsTab = createBottomTabNavigator();
-
-export default function PostsDefault({ navigation }) {
+export default function PostsDefault({ navigation, route }) {
    return (
       <View style={styles.container}>
          <Text>PostsScreen</Text>
