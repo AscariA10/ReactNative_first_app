@@ -2,10 +2,13 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import React, { useEffect } from "react";
 
-import { useRoute } from "./router";
+import { Provider } from "react-redux";
 
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+
+import { useRoute } from "./router";
+import { store } from "./screens/redux/store";
 
 export default function App() {
    const [fontsLoaded] = useFonts({
@@ -27,5 +30,9 @@ export default function App() {
       SplashScreen.hideAsync();
    }
 
-   return <NavigationContainer>{routing}</NavigationContainer>;
+   return (
+      <Provider store={""}>
+         <NavigationContainer>{routing}</NavigationContainer>
+      </Provider>
+   );
 }
