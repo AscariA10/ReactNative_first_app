@@ -3,12 +3,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import React, { useEffect } from "react";
 
 import { Provider } from "react-redux";
+// import { PersistGate } from "redux-persist/integration/react";
 
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
 import { useRoute } from "./router";
-import { store } from "./screens/redux/store";
+import { store, persistor } from "./screens/redux/store";
 
 export default function App() {
    const [fontsLoaded] = useFonts({
@@ -31,8 +32,17 @@ export default function App() {
    }
 
    return (
-      <Provider store={""}>
+      <Provider store={store}>
          <NavigationContainer>{routing}</NavigationContainer>
       </Provider>
    );
+
+   // return <NavigationContainer>{routing}</NavigationContainer>;
+   // return (
+   //    <PersistGate persistor={persistor}>
+   //       <Provider store={store}>
+   //          <NavigationContainer>{routing}</NavigationContainer>
+   //       </Provider>
+   //    </PersistGate>
+   // );
 }
