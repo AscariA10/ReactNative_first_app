@@ -15,6 +15,9 @@ import {
    Keyboard,
 } from "react-native";
 
+import { useDispatch } from "react-redux";
+import { authSignInUser } from "../redux/auth/authOperations.js";
+
 const initialState = {
    email: "",
    password: "",
@@ -25,6 +28,8 @@ export default function LoginScreen({ navigation }) {
    const [email, setEmail] = useState(false);
    const [password, setPassword] = useState(false);
    const [state, setState] = useState(initialState);
+
+   const dispatch = useDispatch();
 
    function hideKeyboard() {
       setIsShowKeyboard(false);
@@ -51,8 +56,9 @@ export default function LoginScreen({ navigation }) {
    }
 
    function onSubmit() {
-      console.log(state);
+      // console.log(state);
       setState(initialState);
+      dispatch(authSignInUser(state));
       hideKeyboard();
       navigation.navigate("Home");
    }
