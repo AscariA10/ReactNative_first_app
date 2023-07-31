@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import React, { useEffect, useState } from "react";
 
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 // import { PersistGate } from "redux-persist/integration/react";
 
 import { useFonts } from "expo-font";
@@ -12,26 +12,13 @@ import { useRoute } from "./router";
 import { store } from "./screens/redux/store";
 
 import { auth } from "./firebase/config";
-
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Main } from "./components/Main";
 
 export default function App() {
-   const [user, setUser] = useState(null);
    const [fontsLoaded] = useFonts({
       "Roboto-Medium": require("./assets/Fonts/Roboto/Roboto-Medium.ttf"),
    });
-
-   // const auth = getAuth();
-
-   const authStateChanged = async (onChange = () => {}) => {
-      onAuthStateChanged(user => {
-         onChange(user);
-         setUser(user);
-         console.log(user.uid);
-      });
-   };
-
-   const routing = useRoute(user);
 
    useEffect(() => {
       async function prepare() {
@@ -48,7 +35,7 @@ export default function App() {
 
    return (
       <Provider store={store}>
-         <NavigationContainer>{routing}</NavigationContainer>
+         <Main />
       </Provider>
    );
 

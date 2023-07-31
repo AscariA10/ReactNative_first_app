@@ -41,4 +41,42 @@ export const authSignInUser =
       }
    };
 
-const authSignOutUser = async (dispatch, getState) => {};
+export const authSignOutUser = () => async () => {
+   // dispatch(authSlice.actions.authSignOut());
+   signOut(auth).then(() => {
+      dispatch(authSlice.actions.authSignOut());
+   });
+};
+
+export const authStateChanged = () => async (dispatch, getState) => {
+   try {
+      onAuthStateChanged(auth, user => {
+         if (user) {
+            dispatch(
+               authSlice.actions.updateUserProfile({
+                  userId: user.uid,
+                  nickName: user.displayName,
+               })
+            );
+            dispatch(authSlice.actions.authStateChange({ stateChange: true }));
+         }
+      });
+   } catch (error) {
+      console.log(error.message);
+   }
+};
+
+// export const authStateChanged = async (onChange = () => {}) => {
+//    onAuthStateChanged(user => {
+//       onChange(user);
+// if (user) {
+//    dispatch(
+//       authSlice.actions.updateUserProfile({
+//          userId: user.uid,
+//          nickName: user.displayName,
+//       })
+//    );
+//    dispatch(authSlice.actions.authStateChange({ stateChange: true }));
+// }
+//    });
+// };

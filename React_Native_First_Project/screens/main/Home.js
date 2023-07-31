@@ -4,6 +4,10 @@ import { Feather } from "@expo/vector-icons";
 import React from "react";
 import { StyleSheet } from "react-native";
 
+import { useDispatch } from "react-redux";
+
+import { authSignOutUser } from "../redux/auth/authOperations";
+
 import PostsScreen from "./PostsScreen";
 import CommentsScreen from "./CommentsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
@@ -11,6 +15,7 @@ import CreatePostsScreen from "./CreatePostsScreen";
 const MainTab = createBottomTabNavigator();
 
 export default function Home({ navigation }) {
+   const dispatch = useDispatch();
    return (
       <MainTab.Navigator screenOptions={{ tabBarShowLabel: false }}>
          <MainTab.Screen
@@ -20,7 +25,10 @@ export default function Home({ navigation }) {
                ),
                headerRight: ({ focused, size, color }) => (
                   <Feather
-                     onPress={() => navigation.navigate("LoginScreen")}
+                     onPress={() => {
+                        dispatch(authSignOutUser());
+                        navigation.navigate("LoginScreen");
+                     }}
                      style={styles.logOut}
                      name="log-out"
                      size={24}
