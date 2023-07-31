@@ -17,6 +17,8 @@ import * as Location from "expo-location";
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 
+import { storage, ref, uploadBytes } from "../../firebase/config";
+
 const initialState = {
    name: "",
    place: "",
@@ -49,9 +51,25 @@ export default function CreatePostsScreen({ navigation }) {
       getPermissions();
    }, []);
 
+   async function uploadPhotoToServer() {
+      const response = await fetch(photo);
+      const file = await response.blob();
+
+      const uniquePostId = Date.now().toString();
+
+      const storageRef = ref(storage, uniquePostId);
+
+      uploadBytes(storageRef, file).then(snapshot => {
+         console.log("Uploaded a blob or file!");
+      });
+      // const data = await ref(storage, `postImages/${uniquePostId}`).uploadBytes(storageRef, file);
+      // console.log("data", data);
+   }
+
    async function takePhoto() {
       const photo = await camera.takePictureAsync();
-      setPhoto(photo.uri);
+      await setPhoto(photo.uri);
+      await uploadPhotoToServer();
    }
 
    async function sendPhoto() {
